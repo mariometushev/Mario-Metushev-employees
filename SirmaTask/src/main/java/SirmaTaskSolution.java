@@ -63,8 +63,7 @@ public class SirmaTaskSolution {
 
                 String newDateFrom = changeDateDelimiter(s[DATE_FROM_INDEX]);
                 checkForInvalidFebruaryMonth(newDateFrom);
-                LocalDate dateFrom = LocalDate.parse(newDateFrom.trim());
-                e.setDateFrom(dateFrom);
+                e.setDateFrom(LocalDate.parse(newDateFrom.trim()));
 
                 if (!s[DATE_TO_INDEX].trim().equalsIgnoreCase("NULL")) {
                     if (!s[DATE_TO_INDEX].trim().matches(DATE_PATTERN.pattern())) {
