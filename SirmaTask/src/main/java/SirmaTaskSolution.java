@@ -31,32 +31,35 @@ public class SirmaTaskSolution {
             CSVReader reader = new CSVReader(fileReader);
             reader.readNext(); //skipping first line
             String[] line = reader.readNext(); //outside the loop, because reader.readNext() should be variable
+
             while (line != null) {
                 CSVElements.add(line); //store the CSV file lines -> O(1) time complexity
                 line = reader.readNext();
             }
 
-            for (String[] s : CSVElements) {
+            for (String[] s : CSVElements) {//iterate the CSV lines
                 if (s.length < NUMBER_OF_CSV_ELEMENTS || s.length > NUMBER_OF_CSV_ELEMENTS) {//check for valid CSV format
                     throw new RuntimeException("Wrong CSV format");
                 }
 
                 checkForInvalidIntegerInput(s[EMPLOYEE_ID_INDEX]);
+                checkForInvalidIntegerInput(s[PROJECT_ID_INDEX]);
+
                 Employee e = new Employee();
                 int employeeId = Integer.parseInt(s[EMPLOYEE_ID_INDEX]);
                 if (employeeId <= 0) { //check for wrong employeeId input
                     throw new RuntimeException("Wrong credentials");
                 }
-
                 e.setId(employeeId);
+
                 employeesIds.add(employeeId);//for the sample output, Set Data Structure give us unique elements
-                checkForInvalidIntegerInput(s[PROJECT_ID_INDEX]);
 
                 int projectId = Integer.parseInt(s[PROJECT_ID_INDEX].trim());
                 if (projectId <= 0) { //check for wrong projectId input
                     throw new RuntimeException("Wrong credentials");
                 }
                 e.setProjectId(projectId);
+
                 if (s[DATE_FROM_INDEX].trim().equalsIgnoreCase("NULL") || !s[DATE_FROM_INDEX].trim().matches(DATE_PATTERN.pattern())) {
                     throw new RuntimeException("Wrong credentials");
                 }
@@ -84,6 +87,7 @@ public class SirmaTaskSolution {
 
             printProjectsInfo(projectEmployees);
             printEmployeesIds(employeesIds);
+
         } catch (IOException | CsvException e) {
             System.out.println("File not found");
         }
