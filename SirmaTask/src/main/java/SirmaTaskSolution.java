@@ -29,8 +29,8 @@ public class SirmaTaskSolution {
         try {
             FileReader fileReader = new FileReader("myFile.CSV");
             CSVReader reader = new CSVReader(fileReader);
+            reader.readNext(); //skipping first line
             String[] line = reader.readNext(); //outside the loop, because reader.readNext() should be variable
-
             while (line != null) {
                 CSVElements.add(line); //store the CSV file lines -> O(1) time complexity
                 line = reader.readNext();
